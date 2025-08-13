@@ -1,0 +1,15 @@
+.controlBar {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+button, select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #f0f0f0;
+}

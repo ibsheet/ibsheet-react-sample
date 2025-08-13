@@ -1,0 +1,36 @@
+.sidebar {
+  width: 240px;
+  background-color: #2C3E50;
+  color: #ECF0F1;
+  padding: 16px 0;
+  height: 100%;
+
+  .menu-item {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #34495E;
+    }
+
+    &.active {
+      background-color: #1ABC9C;
+      color: #fff;
+    }
+
+    .icon {
+      margin-right: 12px;
+      font-size: 1.2em;
+    }
+
+    .title {
+      font-size: 1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
