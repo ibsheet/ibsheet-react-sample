@@ -1,7 +1,9 @@
 import React, { useMemo, useRef, useCallback } from 'react';
 import { IBSheetReact, type IBSheetInstance, type IBSheetOptions, type IBSheetEvents } from '@ibsheet/react';
 
-type SearchFinishEvent = Parameters<NonNullable<IBSheetEvents['onSearchFinish']>>[0];
+const handleSearchFinish: IBSheetEvents['onSearchFinish'] = (param) => {
+  param.sheet.showFilterRow();
+}
 
 const SHEET_COLS = [
   { Header: "정류장ID", Name: "nodeId", Type: "Text", MinWidth: 120 },
@@ -28,9 +30,7 @@ export const BusPage: React.FC = React.memo(() => {
     ],
     Cols: SHEET_COLS,
     Events: {
-      onSearchFinish: (evt: SearchFinishEvent) => {
-        evt.sheet.showFilterRow();
-      }
+      onSearchFinish: handleSearchFinish
     }
   }), []);
 

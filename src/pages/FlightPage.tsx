@@ -3,7 +3,18 @@ import { IBSheetReact, type IBSheetInstance, type IBSheetOptions, type IBSheetEv
 import styles from './FlightPage.module.scss';
 
 type DataRow = { [key: string]: string | number; };
-type ReceiveDataEvent = Parameters<NonNullable<IBSheetEvents['onReceiveData']>>[0];
+
+const countryHandleReceiveData: IBSheetEvents['onReceiveData'] = (param) => {
+  return processReceivedData(param.data, ['depFlight', 'arrFlight', 'flights']);
+}
+
+const passengerHandleReceiveData: IBSheetEvents['onReceiveData'] = (param) => {
+  return processReceivedData(param.data, ['depPassenger', 'arrPassenger', 'passenger']);
+}
+
+const cargoHandleReceiveData: IBSheetEvents['onReceiveData'] = (param) => {
+  return processReceivedData(param.data, ['depBaggage', 'arrBaggage', 'baggage']);
+}
 
 const FLIGHT_OPTIONS = [
   { code: 'country', val: '국가별 항공통계-운항편' },
@@ -66,10 +77,6 @@ const processReceivedData = (data: unknown, keys: string[]): DataRow[] => {
   return processed;
 };
 
-const countryEventHandler = (evt: ReceiveDataEvent) => processReceivedData(evt.data, ['depFlight', 'arrFlight', 'flights']);
-const passengerEventHandler = (evt: ReceiveDataEvent) => processReceivedData(evt.data, ['depPassenger', 'arrPassenger', 'passenger']);
-const cargoEventHandler = (evt: ReceiveDataEvent) => processReceivedData(evt.data, ['depBaggage', 'arrBaggage', 'baggage']);
-
 export const FlightPage: React.FC = React.memo(() => {
   const [selectedCode, setSelectedCode] = useState(FLIGHT_OPTIONS[0].code);
   const [sheetVisible, setSheetVisible] = useState(true);
@@ -94,10 +101,10 @@ export const FlightPage: React.FC = React.memo(() => {
   const onInstance = useCallback((sheet: IBSheetInstance) => {
     let eventHandler;
     switch (selectedCode) {
-      case 'country': eventHandler = countryEventHandler; break;
-      case 'passenger': eventHandler = passengerEventHandler; break;
-      case 'cargo': eventHandler = cargoEventHandler; break;
-      default: eventHandler = countryEventHandler;
+      case 'country': eventHandler = countryHandleReceiveData; break;
+      case 'passenger': eventHandler = passengerHandleReceiveData; break;
+      case 'cargo': eventHandler = cargoHandleReceiveData; break;
+      default: eventHandler = countryHandleReceiveData;
     }
     sheet.bind('onReceiveData', eventHandler);
   }, [selectedCode]);

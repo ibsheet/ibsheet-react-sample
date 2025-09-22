@@ -19,9 +19,7 @@ type NetflixDataRow = {
   n_topTvShow?: string;
 };
 
-type ReceiveDataEvent = Parameters<NonNullable<IBSheetEvents['onReceiveData']>>[0];
-
-const handleReceiveData = (evt: ReceiveDataEvent): NetflixDataRow[] => {
+const handleReceiveData: IBSheetEvents['onReceiveData'] = (evt) => {
   const data = evt.data;
   if (!data) return [];
 
