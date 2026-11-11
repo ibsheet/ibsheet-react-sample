@@ -9,7 +9,7 @@ git clone https://github.com/ibsheet/ibsheet-react-sample.git ibsheet-react-samp
 cd ibsheet-react-sample
 ```
 
-## Copy IBSheet Library
+## Copy IB Sheet Library
 
 copy to: `public/assets/ibsheet`
 
@@ -28,3 +28,5 @@ npm dev
 yarn
 yarn dev
 ```
+
+[IBsheet 8](https://www.ibsheet.com)(웹 데이터 그리드) 매뉴얼 https://docs.ibsheet.com/ibsheet/v8/manual/
